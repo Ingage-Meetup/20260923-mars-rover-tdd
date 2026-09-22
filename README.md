@@ -20,7 +20,7 @@ The recommended IDEs are as follows, but feel free to use whatever IDE you are c
 | 1    | ~30 min | This README                   |
 | 2    | ~30 min | `README-part2.md` (revealed later) |
 | 3    | ~30 min | `README-part3.md` (revealed later) |
-| 4    | ~15 min | Wrap up, discuss, and giveaway
+| 4    | ~15 min | Wrap up, discuss, and giveaway |
 
 **Ground rules**
 
@@ -58,6 +58,8 @@ The catch: every command takes minutes to reach the rover, so the team can't joy
 | `R`  | Turn **right** 90 degrees (stay in the same cell)          |
 
 **Wrapping.** Mars is round (that's our story and we're sticking to it). Drive off one edge of the grid and you appear on the opposite edge, same row or column, still facing the same way. On a 5x5 grid, moving north from `(2, 4)` puts you at `(2, 0)`.
+
+**Valid input.** The examples below only use valid input: the starting position is always inside the grid, and instructions contain only `M`, `L`, and `R`. (What to do with anything else is up to you - see "Done early".)
 
 **The goal.** Given a grid size, a starting position and heading, and an instruction string, work out where the rover ends up (position and heading).
 
@@ -102,10 +104,10 @@ Work top to bottom. Each group builds on the last, so **don't read ahead** - wri
 |------|-------|--------------|-------|
 | 5x5  | 1 1 N | `MRMLM`      | 2 3 N |
 | 5x5  | 0 0 N | `MMRMMLM`    | 2 3 N |
-| 5x5  | 3 3 N | `RMM`        | 0 3 E |
+| 5x5  | 1 1 N | `RMM`        | 3 1 E |
 | 5x5  | 3 3 N | `LMM`        | 1 3 W |
-| 5x5  | 0 0 E | `MRMRMRM`    | 0 0 N |
-| 5x5  | 0 0 N | `MMLMMLMMLMMLMM` | 0 2 N |
+| 5x5  | 1 1 E | `MRMRMRM`    | 1 1 N |
+| 5x5  | 2 2 N | `MMLMMLMMLMMLMM` | 2 4 N |
 
 ### 5. Wrapping - one edge at a time
 
@@ -125,6 +127,7 @@ Each of the four edges, facing straight at it:
 | 5x5  | 0 0 S | `M`               | 0 4 S |
 | 5x5  | 0 0 W | `M`               | 4 0 W |
 | 5x5  | 0 0 N | `LM`              | 4 0 W |
+| 5x5  | 3 3 N | `RMM`             | 0 3 E |
 | 5x5  | 4 4 N | `MRM`             | 0 0 E |
 | 5x5  | 4 4 E | `MLM`             | 0 0 N |
 | 5x5  | 0 0 N | `MMMMM`           | 0 0 N |
@@ -133,13 +136,16 @@ Each of the four edges, facing straight at it:
 
 ### 7. Grids that aren't 5x5
 
-Don't assume the grid is square - if your tests only ever use `5x5`, a mix-up between width and height can hide implementation issues.
+Don't assume the grid is square - if your tests only ever use `5x5`, a mix-up between width and height can hide implementation issues. Every row below wraps, and would give a different answer if width and height were swapped.
 
-| Grid  | Start | Instructions    | End   |
-|-------|-------|-----------------|-------|
-| 10x10 | 0 0 N | `MMMMMMMMMMR`   | 0 0 E |
-| 8x6   | 7 5 E | `MMMRMMMRMMMLM` | 7 1 S |
-| 1x1   | 0 0 N | `MMRMLL`        | 0 0 W |
+| Grid  | Start | Instructions | End   |
+|-------|-------|--------------|-------|
+| 8x6   | 0 0 N | `MMMMMM`     | 0 0 N |
+| 8x6   | 0 0 E | `MMMMMMMM`   | 0 0 E |
+| 8x6   | 7 5 N | `MRM`        | 0 0 E |
+| 3x5   | 2 4 N | `MRM`        | 0 0 E |
+| 1x3   | 0 0 N | `MMMM`       | 0 1 N |
+| 1x1   | 0 0 N | `MMRMLL`     | 0 0 W |
 
 ### 8. Full mission plans
 
